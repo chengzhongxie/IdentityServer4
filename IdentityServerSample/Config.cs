@@ -1,4 +1,5 @@
 ﻿using IdentityServer4.Models;
+using IdentityServer4.Test;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +27,29 @@ namespace IdentityServerSample
                     AllowedGrantTypes=GrantTypes.ClientCredentials,
                     ClientSecrets={new Secret("secret".Sha256())},
                     AllowedScopes={"api"}
+                },
+                new Client()
+                {
+                    ClientId="pwdClient",
+                    AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
+                    ClientSecrets={new Secret("secret".Sha256())},
+                    AllowedScopes={"api"},
+                    RequireClientSecret=false//不用输入secret
+        }
+    };
+}
+
+public static List<TestUser> GetTestUsers()
+{
+    return new List<TestUser>
+            {
+                new TestUser
+                {
+                    SubjectId="1",
+                    Username="xcz",
+                    Password="123456"
                 }
             };
-        }
+}
     }
 }
